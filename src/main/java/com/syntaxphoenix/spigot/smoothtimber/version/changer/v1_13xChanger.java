@@ -55,27 +55,6 @@ public final class v1_13xChanger implements VersionChanger {
 
     @Override
     public ItemStack removeDurabilityFromItem(final ItemStack stack) {
-        if (CutterConfig.ENABLE_UNBREAKING) {
-            final int level = stack.getEnchantmentLevel(Enchantment.DURABILITY);
-            final float chance = 100 / (level <= 0 ? 1 : level + 1);
-            if (RANDOM.nextFloat(0, 100) > chance) {
-                return stack;
-            }
-        }
-        final ItemMeta meta = stack.getItemMeta();
-        if (meta.isUnbreakable()) {
-            return stack;
-        }
-        if (meta instanceof Damageable) {
-            final Damageable dmg = (Damageable) meta;
-            int damage = dmg.getDamage() + 1;
-            if (stack.getType().getMaxDurability() - damage < 0) {
-                stack.setAmount(0);
-                return null;
-            }
-            dmg.setDamage(damage = dmg.getDamage() + 1);
-        }
-        stack.setItemMeta(meta);
         return stack;
     }
 
