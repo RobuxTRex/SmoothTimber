@@ -59,26 +59,6 @@ public final class v1_8xChanger implements VersionChanger {
 
     @Override
     public ItemStack removeDurabilityFromItem(final ItemStack stack) {
-        if (CutterConfig.ENABLE_UNBREAKING) {
-            final int level = stack.getEnchantmentLevel(Enchantment.DURABILITY);
-            final float chance = 100 / (level <= 0 ? 1 : level + 1);
-            if (RANDOM.nextFloat(0, 100) > chance) {
-                return stack;
-            }
-        }
-        if (stack.hasItemMeta()) {
-            final ItemMeta meta = stack.getItemMeta();
-            final Object spigot = Storage.META_SPIGOT.run(meta, "spigot");
-            if ((Boolean) Storage.UNBREAKABLE.run(spigot, "unbreakable")) {
-                return stack;
-            }
-        }
-        final Integer durability = stack.getDurability() + 1;
-        if (stack.getType().getMaxDurability() < durability) {
-            stack.setAmount(0);
-            return null;
-        }
-        stack.setDurability(durability.shortValue());
         return stack;
     }
 
